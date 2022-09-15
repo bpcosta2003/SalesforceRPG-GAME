@@ -44,6 +44,8 @@ You are a Developer from Salesforce that needs to fight in behalf Salesforce! Yo
 - Probability of appearing friend ✔️
 - Learn while you play! ✔️
 
+⚠️ If you want to customize the project, and make it your own RPG, feel free to do it! All the code stuff is in the force-app/main/default/lwc folder!
+
 ## Salesforce DX Project: Next Steps
 
 Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
