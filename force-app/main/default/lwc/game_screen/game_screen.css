@@ -1,0 +1,935 @@
+/*@ GAME SCREEN PAGE  */
+
+.container{
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+    justify-content:space-between;
+    gap: 2rem;
+    padding: 3rem 5rem;
+    width: 100%;
+}
+
+.messageFeedbackPanel{
+    background-color:#e7e7e7;
+    padding:2rem;
+    border-radius:20px;
+    width: 100%;
+}
+
+.messageFeedbackPanel h4{
+    font-size:1.5em;
+    text-align: center;
+    font-weight:500;
+}
+
+.battlePanel{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items:center;
+    gap: 10px;
+    width: 100%;
+
+}
+
+.supportPanel{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items:center;
+    gap: 10px;
+    width: 100%;
+}
+
+.astroPanel, .enemyPanel{
+    background-color:#e7e7e7;
+    width: 30rem;
+    height: 35rem;
+    display:flex;
+    justify-content:space-between;
+    flex-direction:column;
+    border-radius: 20px;
+    position:relative;
+    align-items:center;
+    overflow:hidden;
+    box-shadow: 10px 0 10pc 10px rgba(0, 0, 0, 0.3);
+}
+
+.astroPanel::before{
+   content: "";
+   position: absolute;
+   width: 100%;
+   height:100%;
+   background: linear-gradient(#6c94df, #e7e7e7);
+}
+
+.enemyPanel::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height:100%;
+    background: linear-gradient( #df9a6c,#e7e7e7);
+ 
+}
+
+.enemyPanel h1, .astroPanel h1{
+    position: absolute;
+    font-size: 1.3em;
+    padding: 1rem;
+    font-weight: 800;
+    width: 90%;
+    z-index: 1;
+    background: #e7e7e77a;
+    color: #121212;
+    backdrop-filter: blur(1.5rem);
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 2rem;
+    box-shadow: 10px 0 10pc 10px rgb(0 0 0 / 30%);
+}
+
+.box1{    
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: #e7e7e77a;
+    height: 6rem;
+    justify-content: center;
+    backdrop-filter: blur(1.5rem);
+    bottom: 0;
+    width: 90%;
+    border-radius: 2rem;
+    z-index: 1;
+    margin-bottom: 24px;
+    padding: 1.5rem;
+    box-shadow: 10px 10px 10pc 10px rgb(0 0 0 / 30%)
+}
+
+.descriptionAstro button{
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+    position:absolute;
+    font-size: 2em;
+    padding:1rem;
+    font-weight: 800;
+    width: 100%;
+    z-index: 1;
+    background: #1a56a579;
+    backdrop-filter: blur(0.5rem);
+    color: white;
+    backdrop-filter: blur(1.5rem);
+    text-align:center;
+    border: 1px solid transparent;
+    box-shadow: 0px 0 10pc 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s;
+}
+
+.descriptionEnemy button{
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+    position:absolute;
+    font-size: 2em;
+    padding:1rem;
+    font-weight: 800;
+    width: 100%;
+    z-index: 1;
+    background: #a5641a79;
+    backdrop-filter: blur(0.5rem);
+    color: white;
+    backdrop-filter: blur(1.5rem);
+    text-align:center;
+    border: 1px solid transparent;
+    box-shadow: 0px 0 10pc 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s;
+}
+
+.astroPanel:hover .descriptionAstro button{
+    opacity: 1;
+    transition: all 0.5s;
+
+}
+
+.enemyPanel:hover .descriptionEnemy button{
+    opacity: 1;
+    transition: all 0.5s;
+
+}
+
+.attackPanel{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 15px;
+    padding: 1.5rem;
+
+
+}
+
+.attackPanel button{
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+
+.attackPanel button:active{
+    background: none;
+    border: none;
+    box-shadow: none;
+    animation: attackAnimation 0.5s ease forwards;
+
+}
+
+.attackPanel button:disabled{
+    cursor:not-allowed ;
+    filter: grayscale(100%);
+}
+
+@keyframes attackAnimation {
+    from{
+        transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(35deg);
+    }
+    to{ 
+        transform: rotate(0deg);
+    }
+}
+
+.attackPanel img{
+    width: 15em;
+    height: 100%;
+    
+}
+
+.status{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: 2.3rem;
+    gap: 1.5rem;
+    padding: 5rem;
+}
+
+.box{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.box img{
+    width: 30em;
+    height: 30em;
+    position: relative;
+}
+
+.astroSkills, .enemySkills {
+   display:flex;
+   flex-direction: row;
+   align-items:center;
+   justify-content:space-between;
+   gap: 10px;
+   margin-bottom: 10px;
+}
+
+.astroSkills h4, .enemySkills h4{
+    font-size: 1em;
+    margin-top:6px;
+    font-weight: bold;
+    color: #494949;
+    position: relative;
+}
+
+.astroSkills img, .enemySkills img{
+    width: 3em;
+    position: relative;
+}
+
+.skillCount{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    margin: auto;
+    margin-top: 20px;
+    margin-left: 15px;
+    font-size: 1.8em;
+    text-align: center;
+    border-radius: 100%;
+    height: 35px;
+    width: 35px;
+    background: #ffffff75;
+    backdrop-filter: blur(2rem);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content:center;
+    transition: all 0.5s;
+    width: 100%;
+    background-color:#e7e7e7;
+    padding: 1.3em;
+    border-radius: 20px;
+
+}
+
+.buttons button{
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: all 0.5s;
+    width: 100%;
+    position: relative;
+}
+
+.buttons button:nth-child(1){
+    background-color: rgb(224, 129, 129);
+}
+
+.buttons button:nth-child(3){
+    background-color: rgb(230, 161, 84);
+}
+
+.buttons button:nth-child(2){
+    background-color: rgb(181, 182, 181);
+}
+
+.buttons button:nth-child(1):hover{
+    background-color: rgb(243, 99, 99);
+    transition: all 0.5s;
+}
+
+.buttons button:nth-child(3):hover{
+    background-color: rgb(212, 140, 57);
+    transition: all 0.5s;
+}
+
+.buttons button:nth-child(2):hover{
+    background-color: rgb(141, 141, 141);
+    transition: all 0.5s;
+}
+
+.friendPanel{
+    background-color:#e7e7e7;
+    width: 100%;
+    height: 18rem;
+    display:flex;
+    justify-content:space-between;
+    flex-direction:row;
+    border-radius: 20px;
+    padding: 2rem;
+    gap: 30px;
+    overflow: hidden;
+}
+
+.friendImg{
+    width: 10em;
+    height: 100%;
+}
+
+.contentFriend{
+    display: flex;
+    justify-content:space-around;
+    flex-direction:column;
+    gap: 20px;
+}
+
+.friendTop{
+    display: flex;
+    flex-direction:column;
+    gap: 20px;
+}
+
+.friendTop h1{
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+.friendTop h2{
+    font-size: 1.3em;
+}
+
+
+.friendSkills{
+    display:flex;
+    flex-direction: row;
+    justify-content:space-around;
+    gap: 90px;
+}
+ 
+.friendSkills h4{
+     font-size: 1em;
+     margin-top:6px;
+     font-weight: bold;
+     color: #494949;
+     position: relative;
+}
+ 
+.friendSkills img{
+     width: 5em;
+     position: relative;
+}
+
+.friendButtons{
+    display: flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-direction: row;
+    width: 100%;
+    gap: 20px;
+}
+
+.friendButtons button:nth-child(1){
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid transparent;
+    color: #fff;
+    font-size:1em ;
+    border-radius: 30px;
+    background-color: rgb(107, 221, 122);
+    transition: all 0.5s;
+
+}
+
+.friendButtons button:nth-child(2){
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid transparent;
+    color: #fff;
+    font-size:1em ;
+    border-radius: 30px;
+    background-color: rgb(224, 129, 129);
+    transition: all 0.5s;
+
+}
+
+.friendButtons button:hover:nth-child(1) {
+    background-color: rgb(76, 228, 96);
+    transition: all 0.5s;
+
+}
+
+.friendButtons button:hover:nth-child(2) {
+    background-color: rgb(243, 99, 99);
+    transition: all 0.5s;
+
+}
+
+
+
+/*@ MODAL */
+
+.modalExplain{
+    z-index: 10000 !important;
+}
+
+.textHeaderModal{
+    font-weight:bold;
+    text-transform: uppercase;
+}
+
+.modalInfo{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    padding: 1.5em;
+    gap: 3em;
+    
+}
+
+.contentRight{
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+    justify-content: center;
+    gap: 20px;
+    width: 90%;
+}
+
+.modes{
+    width: 100%;
+}
+
+.modes li{
+    font-size:1.3em;
+}
+
+
+.modalButtons{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+    gap:20px;
+    padding: 1.5rem;
+}
+
+
+.btnRandom,.btnOrder{
+    border-radius: 20px;
+    color: white;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5em;
+    transition: all 0.5s;
+
+}
+
+.btnRandom, .btnOrder{
+    background-color: #0070d2;
+    transition: all 0.5s;
+}
+
+.btnRandom:hover, .btnOrder:hover{
+    background-color: #005fb2;
+    transition: all 0.5s;
+}
+
+
+.contentRight h2{
+    font-size: 2em;
+    margin-top: 0.5rem;
+    width: 100%;
+    font-weight: bold;
+}
+
+.contentLeft img{
+    width: 15em;
+    height: 100%;
+}
+
+.btnLetsGo{ 
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5em;
+    transition: all 0.5s;
+}
+
+.btnLetsGo:hover {
+    background-color: #005fb2;
+    transition: all 0.5s;
+}
+
+/*@ MODAL ENEMY EXPLANATION */
+
+.modalExplain{
+    z-index: 10000 !important;
+}
+
+.textHeaderModal{
+    font-weight:bold;
+}
+
+.modalInfo{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    padding: 1.5rem;
+    gap: 3rem;
+    
+}
+
+.contentRight{
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+    justify-content: center;
+    gap: 30px;
+    width: 90%;
+}
+
+.contentRight h2{
+    font-size: 2em;
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+
+.contentLeft img{
+    width: 15em;
+    height: 100%;
+}
+
+.btnLetsGo{ 
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5em;
+    transition: all 0.5s;
+}
+
+/*@ MODAL RULES*/
+
+.textHeaderModal{
+    font-weight:bold;
+}
+
+.imgRule1, .imgRule2{
+    width:2em;
+    margin: 1.2rem;
+}
+.imgRule1{
+    transform: rotateY(180deg);
+}
+
+.modalInfoRules{
+    padding: 1.5rem;
+}
+
+.rules{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.rule{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items:center;
+}
+
+.rule:nth-child(even) h1{
+   text-align:right;
+}
+.rule:nth-child(even) h3{
+   text-align:right;
+}
+
+.ruleDetail{
+    width: 50%;
+}
+
+.ruleDetail h1{
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.ruleDetail h3{
+    font-size: 2em;
+}
+
+.imgRule{
+    width: 12em;
+    height: 100%;
+}
+
+.btnUnderstand{ 
+    border-radius: 20px;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5em;
+    transition: all 0.5s;
+}
+
+/*@ MODAL CREATE ENEMY*/
+
+.modalButtonsCreate{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+    gap:20px;
+    padding: 1.5rem;
+}
+
+
+.btnCreateEnemy,.btnCancelEnemy{
+    width: 100%;
+    padding: 0.3rem;
+    overflow: hidden;
+    font-size: 1em;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    color: white;
+}
+
+.btnCreateEnemy{
+    background-color: #0070d2;
+    transition: all 0.5s;
+}
+
+.btnCancelEnemy{
+    background-color: rgb(224, 129, 129);
+    transition: all 0.5s;
+}
+
+.btnCreateEnemy:hover{
+    background-color: #005fb2;
+    transition: all 0.5s;
+}
+
+.btnCancelEnemy:hover{
+    background-color: rgb(243, 99, 99);
+    transition: all 0.5s;
+}
+
+/*@ MODAL LEAVE*/
+
+.modalButtonsLeave{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+    gap:20px;
+    padding: 1.5rem;
+}
+
+.modalInfoLeave{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding: 1.5rem;
+    gap: 1rem;
+}
+
+.modalInfoLeave h2{
+    font-size:2em;
+    font-weight:bold;
+}
+
+.btnYesLeave,.btnDontLeave{
+    width: 100%;
+    padding: 0.3rem;
+    overflow: hidden;
+    font-size: 1em;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    color:white;
+}
+
+.btnYesLeave{
+    background-color: #0070d2;
+    transition: all 0.5s;
+}
+
+.btnDontLeave{
+    background-color: rgb(224, 129, 129);
+    transition: all 0.5s;
+}
+
+.btnYesLeave:hover{
+    background-color: #005fb2;
+    transition: all 0.5s;
+}
+
+.btnDontLeave:hover{
+    background-color: rgb(243, 99, 99);
+    transition: all 0.5s;
+}
+
+/*@ MODAL CREATE CHARACTER */
+
+.modalButtonsCreate{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+    gap:20px;
+    padding: 1.5rem;
+}
+
+
+.btnCreateCharacter,.btnCancelCharacter{
+    width: 100%;
+    padding: 0.3rem;
+    overflow: hidden;
+    font-size: 1em;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    color: white;
+}
+
+.btnCreateCharacter{
+    background-color: #0070d2;
+    transition: all 0.5s;
+}
+
+.btnCancelCharacter{
+    background-color: rgb(224, 129, 129);
+    transition: all 0.5s;
+}
+
+.btnCreateCharacter:hover{
+    background-color: #005fb2;
+    transition: all 0.5s;
+}
+
+.btnCancelCharacter:hover{
+    background-color: rgb(243, 99, 99);
+    transition: all 0.5s;
+}
+
+
+/*@ MODAL CONFIG*/
+
+.modalButtonsConfig{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-around;
+    gap:20px;
+    padding: 1.5rem;
+}
+
+.btnCreate,.btnCancel{
+    width: 100%;
+    padding: 0.3rem;
+    overflow: hidden;
+    font-size: 1em;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    color:white;
+}
+
+.btnCreate{
+    background-color: #0070d2;
+    transition: all 0.5s;
+}
+
+.btnCancel{
+    background-color: rgb(224, 129, 129);
+    transition: all 0.5s;
+}
+
+.btnCreate:hover{
+    background-color: #005fb2;
+    transition: all 0.5s;
+}
+
+.btnCancel:hover{
+    background-color: rgb(243, 99, 99);
+    transition: all 0.5s;
+}
+
+/*@ MODAL SELECT CHARACTER */
+
+.characterChoicePanel{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items:center;
+    gap: 50px;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.cardCharacter{
+    background-color:#e7e7e7;
+    width: 20rem;
+    height: 30rem;
+    padding:2rem;
+    display:flex;
+    justify-content:space-between;
+    flex-direction:column;
+    border-radius: 20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.imgChar{
+    position: absolute;
+    width: 100%;
+    max-height: 20rem;
+    bottom: 0;
+}
+
+.characterSkills {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2em;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #ffffff1f;
+    backdrop-filter: blur(1.5rem);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+ 
+.characterSkills h4{
+     font-size: 1em;
+     font-weight: bold;
+     color: #494949;
+     position: relative;
+}
+ 
+.characterSkills img{
+     width: 3em;
+     position: relative;
+}
+
+.selectCharacter {
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+    position:absolute;
+    padding:1rem;
+    width: 100%;
+    z-index: 1;
+    background: #1a56a579;
+    color: white;
+    backdrop-filter: blur(1.5rem);
+    border: 1px solid transparent;
+    box-shadow: 0px 0 10pc 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    transition: all 0.5s;
+    display: flex;
+    align-items: center;
+}
+
+.selectCharacter button{
+    background: none;
+    opacity: 0;
+    font-size: 2em;
+    padding:1rem;
+    font-weight: 800;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    text-transform: uppercase;
+    color: white;
+    text-align:center;
+    border: 1px solid transparent;
+    transition: all 0.5s;
+}
+
+
+.cardCharacter:hover .selectCharacter, .cardCharacter:hover .selectCharacter button{
+    opacity: 1;
+    transition: all 0.5s;
+
+}
+
+.topCardCharacter h1{
+    font-size:2em;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+/*@ SPINNER */
+
+.slds-spinner_container{
+    z-index: 1 !important;
+}

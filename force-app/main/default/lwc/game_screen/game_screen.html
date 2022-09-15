@@ -1,0 +1,537 @@
+<template>
+    <div class="container">
+        <div class="buttons">
+            <button  title="Leave" onclick={showModalLeave} class="btnLeave">LEAVE GAME</button>
+            <button  title="Config" onclick={showModalConfig} class="btnConfig">CONFIGURATION</button>
+            <button  title="Rules" onclick={showModalBoxRules} class="btnRules">GAME RULES</button>
+        </div>
+
+        <div class="supportPanel" if:true={isShowFriend}>
+
+            <div class="friendPanel">
+
+                <img class="friendImg" src={actualImgFriend}/>
+
+                <div class="contentFriend">
+
+                    <div class="friendTop">
+                        <h1>Hey! I'm {actualFriendName} | CLASS : {actualFriendClass}</h1>
+                        <h2>{actualFriendDescription}</h2>
+                    </div>
+                    <div class="friendSkills">
+                        <h4><img src="https://cdn-icons-png.flaticon.com/512/520/520459.png"> <span class="skillCount">{actualFriendGiveHealthPoints}</span></h4>
+                        <h4><img src="https://cdn-icons-png.flaticon.com/512/2746/2746930.png"> <span class="skillCount">{actualFriendGiveAttackPoints}</span></h4>
+                        <h4><img src="https://cdn-icons-png.flaticon.com/512/1625/1625674.png"> <span class="skillCount">{actualFriendGiveSuperPowerPoints}</span></h4>
+                    
+                        <div class="friendButtons">
+                            <button  title="LootAccept" onclick={acceptLoot} class="btnAcceptLoot">ACCEPT SKILLS</button>
+                            <button  title="LootReject" onclick={rejectLoot} class="btnRejectLoot">REJECT SKILLS</button>
+                        </div>
+
+                    </div> 
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="messageFeedbackPanel">
+            <h4>{feedbackMessage}</h4>
+        </div>
+
+        <div class="battlePanel">
+
+            <div class="astroPanel">
+
+                <h1>{actualCharacterName}</h1>
+
+                <div class="descriptionAstro">
+                    <button  title="Description" onclick={showModalAstroExplanation} class="btnDescription">SEE DESCRIPTION</button>
+                </div>
+
+                <div class="box1">
+                    <div class="astroSkills">
+                        <h4><img src="https://cdn-icons-png.flaticon.com/512/520/520459.png"> <span class="skillCount">{actualCharacterHealthPoints}</span></h4>
+                        <h4><img src="https://cdn-icons-png.flaticon.com/512/2746/2746930.png"> <span class="skillCount">{actualCharacterAttackPoints}</span></h4>
+                        <h4><img src="https://cdn-icons-png.flaticon.com/512/1625/1625674.png"> <span class="skillCount">{actualCharacterSuperPowerPoints}</span></h4>
+                    </div>
+                    
+                </div>
+
+                <div class="status">
+                    <div class="exampleHolder" if:true={isLoading}>
+                        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                    </div>
+
+                    <div class="box">
+                        <img src={actualImgCharacter} alt="Character Img"/>
+                    </div>
+                    
+                </div> 
+            </div>
+
+            <div class="attackPanel">
+                <button  title="Attack" onclick={onBattle} class="btnAttack"><img src="https://cdn-icons-png.flaticon.com/512/3426/3426306.png"></button>
+                <button  if:true={isSuperPower} title="Use Super Power" onclick={useSuperPower} class="btnSuperPower"><img src="https://cdn-icons-png.flaticon.com/512/3426/3426127.png"></button>
+            </div>
+
+            <div class="enemyPanel">
+                
+                <h1>{actualEnemyName}</h1>
+
+                <div class="descriptionEnemy">
+                    <button  title="Description" onclick={showModalEnemyDescription} class="btnDescription">SEE DESCRIPTION</button>
+                </div>
+
+                <div class="box1">
+                    <div class="enemySkills">
+                        <h4><img src="https://cdn-icons-png.flaticon.com/512/520/520459.png"> <span class="skillCount">{actualEnemyHealth}</span></h4>
+                        <h4><img src="https://cdn-icons-png.flaticon.com/512/2746/2746930.png"> <span class="skillCount">{actualEnemyDamageHealthPoints}</span></h4>
+                        <h4><img src="https://cdn-icons-png.flaticon.com/512/3563/3563405.png"> <span class="skillCount">{actualEnemyDifficulty}</span></h4>
+                    </div>                    
+                </div>  
+
+                <div class="status">
+                    <div class="exampleHolder" if:true={isLoading}>
+                        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                    </div>
+                    
+                    <div class="box">
+                        <img src={actualImgEnemy}/>
+                    </div>                
+                </div>      
+            </div>
+
+        </div>
+        
+    </div>
+
+    <template if:true={hasWon}>
+        <c-game_result has-won={hasWon} onbacktostartgame={handleBackToStartGameEvent} onreplaygame={handleReplayEvent}></c-game_result>
+    </template>
+
+    <template if:true={hasLost} >
+        <c-game_result has-lost={hasLost} onbacktostartgame={handleBackToStartGameEvent} onreplaygame={handleReplayEvent}></c-game_result>
+    </template>
+
+    <!--@ MODAL SELECT CHARACTER -->
+
+    <template if:true={isShowModalSelectCharacter}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_large">
+            
+            <div class="slds-modal__container">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-11" class="slds-modal__title slds-hyphenate textHeaderModal">SELECT CHARACTER</h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-11">
+
+                    <div class="characters">
+
+                        <lightning-card>
+                            <div class="slds-m-around_medium characterChoicePanel">
+
+                                <template if:true={characters}>
+                                    <template for:each={characters} for:item="char">
+                                        
+                                        <div class="cardCharacter" key={char.Id}>
+
+
+                                            <div class="topCardCharacter">
+                                                <h1>{char.Name}</h1>
+                                            </div>
+
+                                            <img class="imgChar" src={char.Image__c}/>
+
+                                            <div class="characterSkills">
+                                                <h4><img src="https://cdn-icons-png.flaticon.com/512/520/520459.png"> <span class="skillCount">{char.Health__c}</span></h4>
+                                                <h4><img src="https://cdn-icons-png.flaticon.com/512/2746/2746930.png"> <span class="skillCount">{char.Attack__c}</span></h4>
+                                                <h4><img src="https://cdn-icons-png.flaticon.com/512/1625/1625674.png"> <span class="skillCount">{char.Super_Power__c}</span></h4>
+                                            </div>
+
+                                            <div class="selectCharacter">
+                                                <button onclick={handleSelectCharacter} value={char.Order_Number__c}>SELECT {char.Name}</button>
+                                            </div>
+
+                                        </div>
+                                        
+                                    </template>
+                                </template>
+
+                            </div>
+                        </lightning-card>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+    <!--@ MODAL CREATE ENEMY -->
+
+    <template if:true={isShowModalCreateEnemy}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small">
+            
+            <div class="slds-modal__container">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate textHeaderModal">CREATE ENEMY</h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-card>
+                        <div class="slds-p-horizontal_small">
+                            <lightning-record-edit-form object-api-name="Enemy__c" onsuccess={handleSuccess}>
+                                <lightning-messages> </lightning-messages>
+                                <lightning-input-field field-name="Name"> </lightning-input-field>
+                                <lightning-input-field field-name="Damage_HealthPoints__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Enemy_Description__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Enemy_Difficulty__c"> </lightning-input-field>
+                                <lightning-input-field field-name="HealthPoints__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Enemy_Image__c"> </lightning-input-field>
+                                <div class="slds-modal__footer modalButtonsCreate">
+                                    <button
+                                        class="btnCreateEnemy"
+                                        type="submit"
+                                        
+                                    >CREATE
+                                    </button>
+                                    <button
+                                        class="btnCancelEnemy"
+                                        type="cancel"
+                                        onclick={hideModalCreateEnemy}
+                                        
+                                    >CANCEL
+                                    </button>
+                                </div>
+                            </lightning-record-edit-form>
+                        </div>
+                    </lightning-card>
+                    
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+    <!--@ MODAL LETS START -->
+
+    <template if:true={isShowModal}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_large">
+            
+            <div class="slds-modal__container modalExplain">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-02" class="slds-modal__title slds-hyphenate textHeaderModal">LET'S START!</h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <div class="modalInfo">
+                        <div class="contentLeft">
+                            <img src="https://www.salesforce.com/blog/wp-content/uploads/sites/2/2021/12/2021-12-360Blog-2D-IndividualIllustrations-Astro.png" alt="Astro Img"/>
+                        </div>
+                        <div class="contentRight">
+                            <h2>You are a Developer from Salesforce that needs to fight in behalf Salesforce! You will find some difficulties on your way ( subjects that you must know as a developer ), but don't worry, your super powerful friends are coming to help you!</h2>
+                            <h2>You believe that you can be the best at anything you want to do, and solve any problems that comes to you.</h2>
+
+                            <h2>You can choose between 2 game modes : </h2>
+                            
+                            <div class="modes">
+                                <li><b>Random</b> ( It's an infinite game until you lose all your health or attack points, enemy cards can repeat! )</li>
+                                <li><b>Order</b> ( Based on the order of the enemy cards, you win if you defeat all enemies, enemy cards don't repeat! )</li>        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-modal__footer modalButtons">
+                    <button class="slds-button slds-button_brand btnRandom" onclick={startRandomMode}>RANDOM</button>
+                    <button class="slds-button slds-button_brand btnOrder" onclick={startOrderMode}>ORDER</button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+    <!--@ MODAL CHARACTER DESCRIPTION -->
+
+    <template if:true={isShowModalAstroExplanation}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_large">
+            
+            <div class="slds-modal__container modalExplain">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-07" class="slds-modal__title slds-hyphenate textHeaderModal">ABOUT {actualCharacterName}</h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-7">
+                    <div class="modalInfo">
+                        <div class="contentLeft">
+                            <img src={actualImgCharacter} alt="Astro Img"/>
+                        </div>
+                        <div class="contentRight">
+                            <h2>{actualCharacterDescription}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-modal__footer modalButtons">
+                    <button class="slds-button slds-button_brand btnRandom" onclick={hideModalAstroExplanation}>OK, UNDERSTAND!</button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+    <!--@ MODAL ENEMY DESCRIPTION -->
+
+    <template if:true={isShowModalEnemyDescription}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_large">
+            
+            <div class="slds-modal__container modalExplain">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-05" class="slds-modal__title slds-hyphenate textHeaderModal">ABOUT {actualEnemyName}</h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-5">
+                    <div class="modalInfo">
+                        <div class="contentLeft">
+                            <img src={actualImgEnemy} alt="Enemy Img"/>
+                        </div>
+                        <div class="contentRight">
+                            <h2>{actualEnemyDescription}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-modal__footer modalButtons">
+                    <button class="slds-button slds-button_brand btnLetsGo" onclick={hideModalEnemyDescription}>OK, UNDERSTAND!</button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+    <!--@ MODAL LEAVE GAME -->
+
+    <template if:true={isShowModalLeave}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small">
+            
+            <div class="slds-modal__container">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-03" class="slds-modal__title slds-hyphenate textHeaderModal">LEAVE GAME</h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                    <div class="modalInfoLeave">
+                        
+                        <h2>Are you sure you want leave the game?</h2>
+                        <h2>You will lost all your progress.</h2>
+                        
+                    </div>
+                </div>
+
+                <div class="slds-modal__footer modalButtonsLeave">
+                    <button class="btnYesLeave" onclick={handleLeave}>YES</button>
+                    <button class="btnDontLeave" onclick={hideModalLeave}>NO</button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+    <!--@ MODAL CONFIG -->
+
+    <template if:true={isShowModalConfig}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small">
+            
+            <div class="slds-modal__container">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-09" class="slds-modal__title slds-hyphenate textHeaderModal">CONFIGURATION</h1>
+                </div>
+
+                <div class="slds-modal__footer modalButtonsConfig">
+                    <button  title="Create Enemy" onclick={showModalCreateEnemy} class="btnCreate">CREATE ENEMY</button>
+                    <button  title="Create Character" onclick={showModalCreateCharacter} class="btnCreate">CREATE CHARACTER</button>
+                    <button  title="Cancel" class="btnCancel" onclick={hideModalConfig}>CANCEL</button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+    <!--@ MODAL CREATE CHARACTER -->
+
+    <template if:true={isShowModalCreateCharacter}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small">
+            
+            <div class="slds-modal__container">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-10" class="slds-modal__title slds-hyphenate textHeaderModal">CREATE CHARACTER</h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-10">
+                    <lightning-card>
+                        <div class="slds-p-horizontal_small">
+                            <lightning-record-edit-form object-api-name="Character__c" onsuccess={handleSuccessCharacter}>
+                                <lightning-messages> </lightning-messages>
+                                <lightning-input-field field-name="Name"> </lightning-input-field>
+                                <lightning-input-field field-name="Health__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Attack__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Super_Power__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Class__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Description__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Image__c"> </lightning-input-field>
+                                <div class="slds-modal__footer modalButtonsCreate">
+                                    <button
+                                        class="btnCreateCharacter"
+                                        type="submit"
+                                        
+                                    >CREATE
+                                    </button>
+                                    <button
+                                        class="btnCancelCharacter"
+                                        type="cancel"
+                                        onclick={hideModalCreateCharacter}
+                                        
+                                    >CANCEL
+                                    </button>
+                                </div>
+                            </lightning-record-edit-form>
+                        </div>
+                    </lightning-card>
+                    
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+    <!--@ MODAL RULES -->
+
+    <template if:true={isShowModalRules}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_large">
+            
+            <div class="slds-modal__container">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-04" class="slds-modal__title slds-hyphenate textHeaderModal"><img src="https://cdn-icons-png.flaticon.com/512/7844/7844691.png" class="imgRule1"/>RULES OF THE GAME <img src="https://cdn-icons-png.flaticon.com/512/7844/7844691.png" class="imgRule2"/></h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-4">
+                    <div class="modalInfoRules">
+                        <div class="rules">
+
+                            <div class="rule">                            
+                                <div class="ruleDetail">
+                                    <h1>1.</h1>
+                                    <h3>You can create your own character, the recommended is to start with 10 lives, 5 attacks and 0 super powers.</h3>
+                                </div> 
+                                <img class="imgRule" src="https://www.salesforce.com/blog/wp-content/uploads/sites/2/2020/09/Astro_Trailblazer_hoodie_wave-1.png"/>
+                            </div>
+
+                            <div class="rule">
+                                <img class="imgRule" src="https://cdn-icons-png.flaticon.com/512/2645/2645424.png"/>
+                                <div class="ruleDetail">
+                                    <h1>2.</h1>
+                                    <h3>For better learning about the in-game topics about Salesforce, try to explain the topic for yourself, then see the explanation, like a flashcard! How you see the explanation? Click in the description button inside the enemy card.</h3>
+                                </div>
+                            </div>
+
+                            <div class="rule">                                
+                                <div class="ruleDetail">
+                                    <h1>3.</h1>
+                                    <h3>You earn ability points as you play, your superpowered friends appear for you, and you can pick up the skills they give you or not.</h3>
+                                </div>
+                                <img class="imgRule" src="https://cdn-icons-png.flaticon.com/512/8385/8385098.png"/>    
+                            </div>
+
+                            <div class="rule">
+                                <img class="imgRule" src="https://cdn-icons-png.flaticon.com/512/8107/8107301.png"/>
+                                <div class="ruleDetail">
+                                    <h1>4.</h1>
+                                    <h3>You lose health points if the enemy attacks you, you have a percentage of successfully attack, if you are succeed, your attack work, if not, you lose health points, and the enemy don't go away util you defeat them. You always lose attack points since you use the attack button, but if you defeat the enemy you earn attack points based on the enemy difficulty.</h3>
+                                </div>
+                            </div>
+
+                            <div class="rule">                                
+                                <div class="ruleDetail">
+                                    <h1>5.</h1>
+                                    <h3>You win the game when you defeat (learn) all available in-game topics about Salesforce ( your enemies ) using your attack points.</h3>
+                                </div>
+                                <img class="imgRule" src="https://cdn-icons-png.flaticon.com/512/1910/1910662.png"/>    
+                            </div>
+
+                            <div class="rule">
+                                <img class="imgRule" src="https://cdn-icons-png.flaticon.com/512/2012/2012613.png"/>
+                                <div class="ruleDetail">
+                                    <h1>6.</h1>
+                                    <h3>You lose the game if your health reaches 0 or your attack points reaches 0, if you lost you can play again, doing that the subject will fix better in your mind.</h3>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-modal__footer modalButtons">
+                    <button class="slds-button slds-button_brand btnUnderstand" onclick={hideModalBoxRules}>OK, UNDERSTAND!</button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+</template>

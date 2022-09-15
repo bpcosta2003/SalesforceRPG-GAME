@@ -1,0 +1,253 @@
+/*@ START GAME PAGE  */
+
+.container{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 3rem 5rem;
+    background-color:#d4dde4;
+
+
+    background: url('https://www.movedata.io/wp-content/uploads/2020/04/salesforce-image.jpeg');
+    background-size: cover;
+    background-position: center;
+
+    width: 100%;
+}
+
+.startScreenBox{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-direction: column;
+    gap:6rem;
+}
+
+
+.info{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    gap: 10px;
+}
+
+.typeWriteContainer {
+    display: inline-block;
+}
+
+.typeWriteContainer h3:nth-child(1){
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 3em;
+    font-style: bold;
+    margin-bottom:20px;
+    width: 0;
+    animation: typing 1.3s steps(25, end) forwards;
+}
+
+.typeWriteContainer h3{
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 2em;
+    width: 0;
+    animation: typing 1.3s steps(25, end) forwards;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+.buttons{
+    display:flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    gap: 20px;
+    animation: opacityReveal 1.3s forwards;
+    
+}
+
+@keyframes opacityReveal {
+    from { opacity: 0 }
+    to { opacity: 100% }
+}
+
+.btnStart{
+    width: 100%;
+    padding: 1.5rem 2rem;
+    border-radius:20px;
+    background: #0070d2;
+    color: white;
+    font-size:1.5em;
+    border: none;
+    transition: all 0.5s;
+}
+
+.btnRules{
+    width: 100%;
+    padding: 1.5rem 2rem;
+    border-radius:20px;
+    background: rgb(230, 161, 84);
+    color: white;
+    font-size:1.5em;
+    border: none;
+    transition: all 0.5s;
+}
+
+.btnCreate{
+    width: 100%;
+    padding: 1.5rem 2rem;
+    border-radius:20px;
+    background: rgb(107, 221, 122);
+    color: white;
+    font-size:1.5em;
+    border: none;
+    transition: all 0.5s;
+}
+
+.btnStart:hover{
+    background: #005fb2;
+    transition: all 0.5s;
+}
+
+.btnRules:hover{
+    background: rgb(212, 140, 57);
+    transition: all 0.5s;
+}
+
+.btnCreate:hover{
+    background: rgb(76, 228, 96);
+    transition: all 0.5s;
+}
+
+footer{
+    width: 100%;
+}
+
+footer h4{
+    text-align: center;
+    font-size:1.5em;
+}
+
+footer a{
+    color: black;
+    text-decoration:underline;
+
+}
+
+footer a:hover{
+    color: #0070d2;
+    text-decoration:underline;
+
+}
+
+/*@ MODAL */
+
+.textHeaderModal{
+    font-weight:bold;
+}
+
+.imgRule1, .imgRule2{
+    width:2em;
+    margin: 1.2rem;
+}
+.imgRule1{
+    transform: rotateY(180deg);
+}
+
+.modalInfoRules{
+    padding: 1.5rem;
+}
+
+.rules{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.rule{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items:center;
+}
+
+.rule:nth-child(even) h1{
+   text-align:right;
+}
+.rule:nth-child(even) h3{
+   text-align:right;
+}
+
+.ruleDetail{
+    width: 50%;
+}
+
+.ruleDetail h1{
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.ruleDetail h3{
+    font-size: 2em;
+}
+
+.imgRule{
+    width: 12em;
+    height: 100%;
+}
+
+.btnUnderstand{ 
+    border-radius: 20px;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5em;
+    transition: all 0.5s;
+}
+
+/*@ MODAL CREATE CHARACTER */
+
+.modalButtonsCreate{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+    gap:20px;
+    padding: 1.5rem;
+}
+
+
+.btnCreateCharacter,.btnCancelCharacter{
+    width: 100%;
+    padding: 0.3rem;
+    overflow: hidden;
+    font-size: 1em;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    color: white;
+}
+
+.btnCreateCharacter{
+    background-color: #0070d2;
+    transition: all 0.5s;
+}
+
+.btnCancelCharacter{
+    background-color: rgb(224, 129, 129);
+    transition: all 0.5s;
+}
+
+.btnCreateCharacter:hover{
+    background-color: #005fb2;
+    transition: all 0.5s;
+}
+
+.btnCancelCharacter:hover{
+    background-color: rgb(243, 99, 99);
+    transition: all 0.5s;
+}

@@ -1,0 +1,39 @@
+<template >
+
+    <template if:true={isOpen}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small">
+            
+            <div class="slds-modal__container">
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <div class="modalInfo">
+                        <div class="message won-message" if:true={hasWon}>
+                            <h1>YOU WON!</h1>
+                            <img src="https://cdn-icons-png.flaticon.com/512/5167/5167655.png"/>
+
+                        </div>
+                        <div class="message failed-message" if:true={hasLost}>
+                            <h1>YOU LOST</h1>
+                            <img src="https://cdn-icons-png.flaticon.com/512/5167/5167630.png"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-modal__footer modalButtons">
+                    <button class="slds-button slds-button_brand btnBack" onclick={handleLeaveHome}>
+                        HOME
+                    </button>
+                    <button class="slds-button slds-button_brand btnReplay" onclick={handReplay}>
+                        REPLAY
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+</template>

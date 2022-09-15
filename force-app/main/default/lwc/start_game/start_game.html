@@ -1,0 +1,165 @@
+<template>
+
+    <div class="container" >
+
+        <div class="startScreenBox" if:false={gameScreen}>
+            <div class="info">
+                <img src="https://play-lh.googleusercontent.com/bJ4yfe91bjz9fxR0XFUwEzyfz6XCgVshJgpffdTWa7PObd2W5Mwf89hlrVki4rqLxpY=w600-h300-pc0xffffff-pd" alt="SALESFORCE RPG - GAME">
+                    
+                <div class="typeWriteContainer">
+                    <h3>Welcome to SALESFORCE RPG!</h3>
+                    <h3>It's an RPG based game, Astro and their friends fight together to defeat</h3>
+                    <h3>difficulties about Salesforce subjects!</h3>
+                    <h3>Learn while you have fun!</h3>
+                </div> 
+            </div>
+            <div class="buttons">
+                <button  title="Start Game" onclick={onStart} class="btnStart">START GAME</button>
+                <button  title="Create Character" onclick={showModalCreateCharacter} class="btnCreate">CREATE CHARACTER</button>
+                <button  title="Rules" onclick={showModalBox} class="btnRules">RULES</button>
+            </div>
+            <footer>
+                <h4>Made by <a href="https://trailblazer.me/id/brunocosta03" target="_blank">Bruno Costa</a></h4>
+            </footer>
+        </div> 
+
+        <div class="gameScreenBox" if:true={gameScreen}>
+            <c-game_screen onleavetostartgame={handleLeaveToStartGameEvent} onreplaygame={handleReplayEvent}></c-game_screen>
+        </div>
+        
+    </div>
+
+    <!--@ MODAL RULES -->
+
+    <template if:true={isShowModal}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_large">
+            
+            <div class="slds-modal__container">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-04" class="slds-modal__title slds-hyphenate textHeaderModal"><img src="https://cdn-icons-png.flaticon.com/512/7844/7844691.png" class="imgRule1"/>RULES OF THE GAME <img src="https://cdn-icons-png.flaticon.com/512/7844/7844691.png" class="imgRule2"/></h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-4">
+                    <div class="modalInfoRules">
+                        <div class="rules">
+
+                            <div class="rule">                            
+                                <div class="ruleDetail">
+                                    <h1>1.</h1>
+                                    <h3>You can create your own character, the recommended is to start with 10 lives, 5 attacks and 0 super powers.</h3>
+                                </div> 
+                                <img class="imgRule" src="https://www.salesforce.com/blog/wp-content/uploads/sites/2/2020/09/Astro_Trailblazer_hoodie_wave-1.png"/>
+                            </div>
+
+                            <div class="rule">
+                                <img class="imgRule" src="https://cdn-icons-png.flaticon.com/512/2645/2645424.png"/>
+                                <div class="ruleDetail">
+                                    <h1>2.</h1>
+                                    <h3>For better learning about the in-game topics about Salesforce, try to explain the topic for yourself, then see the explanation, like a flashcard! How you see the explanation? Click in the description button inside the enemy card.</h3>
+                                </div>
+                            </div>
+
+                            <div class="rule">                                
+                                <div class="ruleDetail">
+                                    <h1>3.</h1>
+                                    <h3>You earn ability points as you play, your superpowered friends appear for you, and you can pick up the skills they give you or not.</h3>
+                                </div>
+                                <img class="imgRule" src="https://cdn-icons-png.flaticon.com/512/8385/8385098.png"/>    
+                            </div>
+
+                            <div class="rule">
+                                <img class="imgRule" src="https://cdn-icons-png.flaticon.com/512/8107/8107301.png"/>
+                                <div class="ruleDetail">
+                                    <h1>4.</h1>
+                                    <h3>You lose health points if the enemy attacks you, you have a percentage of successfully attack, if you are succeed, your attack work, if not, you lose health points, and the enemy don't go away util you defeat them. You always lose attack points since you use the attack button, but if you defeat the enemy you earn attack points based on the enemy difficulty.</h3>
+                                </div>
+                            </div>
+
+                            <div class="rule">                                
+                                <div class="ruleDetail">
+                                    <h1>5.</h1>
+                                    <h3>You win the game when you defeat (learn) all available in-game topics about Salesforce ( your enemies ) using your attack points.</h3>
+                                </div>
+                                <img class="imgRule" src="https://cdn-icons-png.flaticon.com/512/1910/1910662.png"/>    
+                            </div>
+
+                            <div class="rule">
+                                <img class="imgRule" src="https://cdn-icons-png.flaticon.com/512/2012/2012613.png"/>
+                                <div class="ruleDetail">
+                                    <h1>6.</h1>
+                                    <h3>You lose the game if your health reaches 0 or your attack points reaches 0, if you lost you can play again, doing that the subject will fix better in your mind.</h3>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-modal__footer modalButtons">
+                    <button class="slds-button slds-button_brand btnUnderstand" onclick={hideModalBox}>OK, UNDERSTAND!</button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+    <!--@ MODAL CREATE CHARACTER -->
+
+    <template if:true={isShowModalCreateCharacter}>
+
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small">
+            
+            <div class="slds-modal__container">
+
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate textHeaderModal">CREATE CHARACTER</h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-card>
+                        <div class="slds-p-horizontal_small">
+                            <lightning-record-edit-form object-api-name="Character__c" onsuccess={handleSuccess}>
+                                <lightning-messages> </lightning-messages>
+                                <lightning-input-field field-name="Name"> </lightning-input-field>
+                                <lightning-input-field field-name="Health__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Attack__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Super_Power__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Class__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Description__c"> </lightning-input-field>
+                                <lightning-input-field field-name="Image__c"> </lightning-input-field>
+                                <div class="slds-modal__footer modalButtonsCreate">
+                                    <button
+                                        class="btnCreateCharacter"
+                                        type="submit"
+                                        
+                                    >CREATE
+                                    </button>
+                                    <button
+                                        class="btnCancelCharacter"
+                                        type="cancel"
+                                        onclick={hideModalCreateCharacter}
+                                        
+                                    >CANCEL
+                                    </button>
+                                </div>
+                            </lightning-record-edit-form>
+                        </div>
+                    </lightning-card>
+                    
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+    </template>
+
+</template>
